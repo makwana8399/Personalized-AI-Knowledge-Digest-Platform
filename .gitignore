@@ -1,0 +1,46 @@
+# Python caches
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environment
+.venv/
+env/
+venv/
+
+# Logs
+logs/
+*.log
+
+# Database files
+app/database/*.db
+app/database/migrations/__pycache__/
+
+# Docker
+docker-compose.override.yml
+*.env
+docker/.env
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Byte-compiled / optimized / DLL files
+*.so
+*.dylib
+*.dll
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Ignore sensitive settings
+app/config/__pycache__/
+app/config/settings.pyc
+app/config/settings_local.py
+
+# Ignore data
+data/

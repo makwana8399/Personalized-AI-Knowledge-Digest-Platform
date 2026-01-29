@@ -1,0 +1,5 @@
+# Run Commands
+
+python -m app.database.db
+python -m app.database.init_db
+python -m app.main

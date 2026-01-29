@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: ai-digest-app
+    env_file: ../.env
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgresql://ai:ai123@db:5432/digest
+      PYTHONPATH: /app
+    volumes:
+      - ../logs:/app/logs
+    networks:
+      - digest-network
+    restart: unless-stopped
+    command: python -m app.main
+
+  db:
+    image: postgres:16-alpine
+    container_name: ai-digest-db
+    environment:
+      POSTGRES_USER: ai
+      POSTGRES_PASSWORD: ai123
+      POSTGRES_DB: digest
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - digest-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ai -d digest"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pgdata:
+
+networks:
+  digest-network:
+    driver: bridge
